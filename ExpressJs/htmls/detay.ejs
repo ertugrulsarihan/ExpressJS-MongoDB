@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs')%>
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/nav.ejs')%>
+    <div class="detay content">
+  <h2><%=lesson.title%></h2>
+  <div class="content">
+ <p><%=lesson.content%></p>
+ <hr>
+ <p>Create Time:<%=lesson.createdAt%></p>
+  </div>
+  <a class="sil" data-doc='<%=lesson._id%>'>Delete</a>
+    </div>
+  <script>
+    const deleteButton=document.querySelector('a.sil');
+    deleteButton.addEventListener('click',()=>{
+      const endpoint=`/lessons/${deleteButton.dataset.doc}`;
+      fetch(endpoint,{method:'DELETE'}).then(response=>response.json()).then((data)=>window.location.href=data.redirect).catch(err=>console.log(err))
+    })
+  </script>
+</html>
